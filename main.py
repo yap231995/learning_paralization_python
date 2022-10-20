@@ -1,5 +1,5 @@
 #learning how to do multiprocessing
-import multiprocessing
+# import multiprocessing
 import time
 start = time.perf_counter()
 def do_something(seconds):
@@ -29,7 +29,7 @@ def do_something(seconds):
 #####new way to be able to work with threading ####
 import concurrent.futures
 
-with concurrent.futures.ProcessPoolExecutor() as executor:
+with concurrent.futures.ProcessPoolExecutor() as executor: #change to ThreadPoolExecutor for threading instead
     # f1 = executor.submit(do_something, 1)
     # f2 = executor.submit(do_something, 1)
     # print(f1.result())
@@ -37,10 +37,10 @@ with concurrent.futures.ProcessPoolExecutor() as executor:
     secs = [1,2,3,4,5]
     #Method 1
     # results = [executor.submit(do_something, sec) for sec in secs]
+    # for f in concurrent.futures.as_completed(results):
+    #     print(f.result())
     #Method 2: Note that the order is the same order as the output.
-    results = executor.map(do_something,secs)
-    for f in concurrent.futures.as_completed(results):
-        print(f.result())
+    results = executor.map(do_something, secs)
 finish = time.perf_counter()
 print(f'Finished in {round(finish-start,2)} second(s)')
 
